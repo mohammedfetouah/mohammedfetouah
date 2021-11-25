@@ -1,13 +1,14 @@
 <template>
-  <nav id="nav">
-    <router-link to="/">Forum</router-link> |
-    <router-link to="/Login"> Login</router-link> |
-    <router-link to="/Signup"> Signup</router-link> |
-    <router-link to="/Profile"> Profile</router-link> 
-  </nav>
-  <router-view />
+  <div>
+    <nav id="nav">
+      <router-link to="/">Forum</router-link> |
+      <router-link to="/Login"> Login</router-link> |
+      <router-link to="/Signup"> Signup</router-link> |
+      <router-link to="/Profile"> Profile</router-link> 
+    </nav>
+    <router-view />
+  </div>
 </template>
-
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

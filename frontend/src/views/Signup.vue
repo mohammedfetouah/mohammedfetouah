@@ -1,7 +1,11 @@
-<template>
-  <div class="Signup">
-      <h1>
-          Signup
-      </h1>
-  </div>
-</template>
+
+
+<script>
+
+
+</script>
+<style scoped lang="scss">
+  img {
+    width: 30%;
+  }
+</style>

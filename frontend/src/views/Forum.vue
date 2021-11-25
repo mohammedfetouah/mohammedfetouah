@@ -1,20 +1,18 @@
 <template>
   <div class="Forum">
     <img alt="Vue logo" src="../assets/icon-above-font.png">
-    <H1 msg="Forum"/>
+    <div class="title-main">
+      <h1>Bienvenue sur le forum</h1>
+    </div>
+    <div class="title-secondary">
+      <h2>h2</h2>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import h1 from '@/components/h1.vue'
 
-export default {
-  name: 'Forum',
-  components: {
-    h1
-  }
-}
+
 </script>
 <style scoped lang="scss">
   img {
