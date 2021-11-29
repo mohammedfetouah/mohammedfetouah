@@ -1,77 +1,61 @@
-const User = require('../models/user');
+const { users } = require("../models");
+const db = require("../models");
+const User = db.users;
+const Op = db.Sequelize.Op;
 
-
-exports.showUsers = (req, res, next) => {
-    User.getUsers().then(
-        (users) => {
-            res.status(200).json(users);
-        }
-    ).catch(
-        (error) => {
-            res.status(404).json({
-            error: error
+// Create and Save a new User
+exports.create = (req, res) => {
+    // Create a User
+    const user = {
+        ...req.body
+      };
+      // Save User in the database
+      User.create(user)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Une erreur s'est produite lors de la création de l'utilisateur"
+            });
         });
-    })
 };
 
-exports.createUser = (req, res, next) => {
-    User.insertUser(req.body).then(
-        (users) => {
-            res.status(200).json(users);
-        }
-    ).catch(
-        (error) => {
-            res.status(404).json({
-            error: error
-        });
+// Retrieve all Users from the database.
+exports.findAll = (req, res) => {
+    User.findAll()
+    .then(data => {
+        res.send(data);
     })
+    .catch(err => {
+        res.status(500).send({
+            message:
+            err.message || "Une erreur s'est produite lors de la récupération des utilisateurs"
+        });
+    });
 };
 
- 
-// // Get Single Product 
-// export const showProductById = (req, res) => {
-//     getProductById(req.params.id, (err, results) => {
-//         if (err){
-//             res.send(err);
-//         }else{
-//             res.json(results);
-//         }
-//     });
-// }
- 
-// // Create New Product
-// export const createProduct = (req, res) => {
-//     const data = req.body;
-//     insertProduct(data, (err, results) => {
-//         if (err){
-//             res.send(err);
-//         }else{
-//             res.json(results);
-//         }
-//     });
-// }
- 
-// // Update Product
-// export const updateProduct = (req, res) => {
-//     const data  = req.body;
-//     const id    = req.params.id;
-//     updateProductById(data, id, (err, results) => {
-//         if (err){
-//             res.send(err);
-//         }else{
-//             res.json(results);
-//         }
-//     });
-// }
- 
-// // Delete Product
-// export const deleteProduct = (req, res) => {
-//     const id = req.params.id;
-//     deleteProductById(id, (err, results) => {
-//         if (err){
-//             res.send(err);
-//         }else{
-//             res.json(results);
-//         }
-//     });
-// }
+// // Find a single User with an id
+// exports.findOne = (req, res) => {
+  
+// };
+
+// // Update a User by the id in the request
+// exports.update = (req, res) => {
+  
+// };
+
+// // Delete a User with the specified id in the request
+// exports.delete = (req, res) => {
+  
+// };
+
+// // Delete all Users from the database.
+// exports.deleteAll = (req, res) => {
+  
+// };
+
+// // Find all published Users
+// exports.findAllPublished = (req, res) => {
+  
+// };
