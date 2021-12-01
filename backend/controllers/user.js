@@ -4,7 +4,7 @@ const User = db.users;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new User
-exports.create = (req, res) => {
+exports.signup = (req, res) => {
     // Create a User
     const user = {
         ...req.body
@@ -22,8 +22,8 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all Users from the database.
-exports.findAll = (req, res) => {
-    User.findAll()
+exports.login = (req, res) => {
+    User.findOne({ email: req.body.email })
     .then(data => {
         res.send(data);
     })

@@ -2,9 +2,9 @@
   <div>
     <nav id="nav">
       <router-link to="/">Forum</router-link> |
-      <router-link to="/Login"> Login</router-link> |
-      <router-link to="/Signup"> Signup</router-link> |
-      <router-link to="/Profile"> Profile</router-link> 
+      <router-link to="/connexion">Connexion</router-link> |
+      <router-link to="/inscription">Inscription</router-link> |
+      <router-link to="/mon-compte">Mon compte</router-link> 
     </nav>
     <router-view />
   </div>

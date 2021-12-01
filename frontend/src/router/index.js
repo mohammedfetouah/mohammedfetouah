@@ -11,17 +11,17 @@ const routes = [
     component: Forum
   },
   {
-    path: '/login',
+    path: '/connexion',
     name: 'Login',
     component: Login
   },
   {
-    path: '/signup',
+    path: '/inscription',
     name: 'Signup',
     component: Signup
   },
   {
-    path: '/profile',
+    path: '/mon-compte',
     name: 'Profile',
     component: Profile
   }
