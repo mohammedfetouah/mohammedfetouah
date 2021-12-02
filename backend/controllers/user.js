@@ -1,7 +1,6 @@
 const { users } = require("../models");
 const db = require("../models");
 const User = db.users;
-const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 var passwordValidator = require('password-validator');
 const jwt = require('jsonwebtoken');

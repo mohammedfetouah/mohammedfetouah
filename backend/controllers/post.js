@@ -1,14 +1,17 @@
 const { posts } = require("../models");
 const db = require("../models");
 const Post = db.posts;
-const Op = db.Sequelize.Op;
+const fs = require('fs');
+
 
 
 exports.createPost = (req, res) => {
-    // Create a Post
     const post = {
-        ...req.body
+      message: req.body.message,
+      img: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+      userId: req.body.userId
     };
+    console.log(post);
     // Save Post in the database
     Post.create(post)
     .then(data => {
@@ -22,10 +25,7 @@ exports.createPost = (req, res) => {
 };
 
 exports.getOnePost = (req, res, next) => {
-  Post.findOne({
-
-    _id: req.params.id
-    
+  Post.findOne({ where: { email: req.body.email}
   }).then(
     (post) => {
       res.status(200).json(post);
@@ -49,7 +49,7 @@ exports.modifyPost = (req, res, next) => {
         ...JSON.parse(req.body.post),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
       } : { ...req.body };
-    Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id }) 
+    Post.updateOne({ id: req.body.id }, { ...postObject, _id: req.params.id }) 
       .then(() => res.status(200).json({ message: 'Objet modifié !'}))
       .catch(error => res.status(400).json({ error }));
     });
@@ -72,7 +72,8 @@ exports.deletePost = (req, res, next) => {
 
 
 exports.getAllPost = (req, res, next) => {
-    Post.find().then(
+
+    Post.findAll().then(
       (posts) => {
         res.status(200).json(posts);
       }

@@ -1,15 +1,15 @@
 const { commentaires } = require("../models");
 const db = require("../models");
 const Commentaire = db.commentaires;
-const Op = db.Sequelize.Op;
+const fs = require('fs');
 
 
 exports.createCommentaire = (req, res) => {
-    // Create a Post
+    // Create a Commentaire
     const commentaire = {
         ...req.body
     };
-    // Save Post in the database
+    // Save Commentaire in the database
     Commentaire.create(commentaire)
     .then(data => {
         res.send(data);
@@ -22,10 +22,8 @@ exports.createCommentaire = (req, res) => {
 };
 
 exports.getOneCommentaire = (req, res, next) => {
-  Commentaire.findOne({
+  Commentaire.findOne({ where : { _id: req.params.id}
 
-    _id: req.params.id
-    
   }).then(
     (post) => {
       res.status(200).json(post);
@@ -44,7 +42,7 @@ exports.modifyCommentaire = (req, res, next) => {
   .then(commentaire => {
     const filename = post.imageUrl.split('/images/')[1];
     fs.unlink(`images/${filename}`, () => {
-      const PostObject = req.file ?
+      const comnnetaireObject = req.file ?
       {
         ...JSON.parse(req.body.post),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
@@ -70,10 +68,10 @@ exports.deleteCommentaire = (req, res, next) => {
 
 
 
-exports.getAllPost = (req, res, next) => {
-    Post.find().then(
-      (posts) => {
-        res.status(200).json(posts);
+exports.getAllCommentaire = (req, res, next) => {
+    Commentaire.find().then(
+      (commentaires) => {
+        res.status(200).json(commentaires);
       }
     ).catch(
       (error) => {

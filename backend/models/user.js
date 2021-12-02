@@ -21,8 +21,8 @@ module.exports = (sequelize, Sequelize,Post,Commentaire) => {
         type: Sequelize.STRING
       }
     });
-    User.hasMany(Post, Commentaire);
-
+    User.hasMany(Post);
+    User.hasMany(Commentaire);
   
     return User;
   };

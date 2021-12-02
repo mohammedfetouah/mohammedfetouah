@@ -24,8 +24,8 @@ db.sequelize = sequelize;
 sequelize.sync();
 
 db.commentaires = require("./commentaire.js")(sequelize, Sequelize);
-db.posts = require("./post.js")(sequelize, Sequelize,db.commentaire);
-db.users = require("./user.js")(sequelize, Sequelize,db.posts,db.commentaire);
+db.posts = require("./post.js")(sequelize, Sequelize,db.commentaires);
+db.users = require("./user.js")(sequelize, Sequelize,db.posts,db.commentaires);
 
 
 module.exports = db;
