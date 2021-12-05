@@ -1,7 +1,8 @@
-const { posts } = require("../models");
+const models = require("../models");
 const db = require("../models");
 const Post = db.posts;
 const fs = require('fs');
+
 
 
 
@@ -13,7 +14,7 @@ exports.createPost = (req, res) => {
     };
     console.log(post);
     // Save Post in the database
-    Post.create(post)
+    models.posts.create(post)
     .then(data => {
         res.send(data);
     })
@@ -25,7 +26,7 @@ exports.createPost = (req, res) => {
 };
 
 exports.getOnePost = (req, res, next) => {
-  Post.findOne({ where: { email: req.body.email}
+  models.posts.findOne({ where: { email: req.body.email}
   }).then(
     (post) => {
       res.status(200).json(post);
@@ -40,28 +41,28 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.modifyPost = (req, res, next) => {
-  Post.findOne({ _id: req.params.id })
+  models.posts.findOne({ where : {id: req.params.id} })
   .then(post => {
-    const filename = post.imageUrl.split('/images/')[1];
-    fs.unlink(`images/${filename}`, () => {
-      const PostObject = req.file ?
+    const filename = post.img.split('/images/')[1];
+    fs.unlink(`/images/${filename}`, () => {
+      const postObject = req.file ?
       {
-        ...JSON.parse(req.body.post),
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        ...post,
+        img: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
       } : { ...req.body };
-    Post.updateOne({ id: req.body.id }, { ...postObject, _id: req.params.id }) 
-      .then(() => res.status(200).json({ message: 'Objet modifié !'}))
-      .catch(error => res.status(400).json({ error }));
+      models.posts.update(postObject, {where : {id : req.params.id}})
+      .then(() =>  res.status(200).json({ message: 'Objet modifer'}))
     });
   })
 };
 
 exports.deletePost = (req, res, next) => {
-  Post.findOne({ _id: req.params.id })
-    .then(sauce => {
-      const filename = post.imageUrl.split('/images/')[1];
+  models.posts.findOne({where: {id: req.params.id} })
+    .then(post => {
+      console.log(post)
+      const filename = post.img.split('/images/')[1];
       fs.unlink(`images/${filename}`, () => {
-        Post.deleteOne({ _id: req.params.id })
+        models.posts.destroy({ where : {id: req.params.id} })
           .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
           .catch(error => res.status(400).json({ error }));
       });
@@ -73,7 +74,7 @@ exports.deletePost = (req, res, next) => {
 
 exports.getAllPost = (req, res, next) => {
 
-    Post.findAll().then(
+    models.posts.findAll().then(
       (posts) => {
         res.status(200).json(posts);
       }
