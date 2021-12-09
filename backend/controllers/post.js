@@ -1,9 +1,7 @@
-const models = require("../models");
+const  models  = require("../models");
 const db = require("../models");
 const Post = db.posts;
 const fs = require('fs');
-
-
 
 
 exports.createPost = (req, res) => {
@@ -12,7 +10,6 @@ exports.createPost = (req, res) => {
       img: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
       userId: req.body.userId
     };
-    console.log(post);
     // Save Post in the database
     models.posts.create(post)
     .then(data => {
@@ -26,7 +23,8 @@ exports.createPost = (req, res) => {
 };
 
 exports.getOnePost = (req, res, next) => {
-  models.posts.findOne({ where: { email: req.body.email}
+
+  models.posts.findOne({ where: {id: req.params.id}
   }).then(
     (post) => {
       res.status(200).json(post);
@@ -52,8 +50,10 @@ exports.modifyPost = (req, res, next) => {
       } : { ...req.body };
       models.posts.update(postObject, {where : {id : req.params.id}})
       .then(() =>  res.status(200).json({ message: 'Objet modifer'}))
+      .catch(error => res.status(400).json({ error }));
     });
   })
+  .catch(error => res.status(500).json({ error }));
 };
 
 exports.deletePost = (req, res, next) => {

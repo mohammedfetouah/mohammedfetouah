@@ -27,7 +27,8 @@ exports.signup = (req, res, next) => {
             password: hash,
             pseudo: req.body.pseudo,
             prenom: req.body.prenom,
-            nom: req.body.nom
+            nom: req.body.nom,
+            role: 'user'
           });
           user.save()
             .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
@@ -48,16 +49,13 @@ exports.login = (req, res, next) => {
         }
         bcrypt.compare(req.body.password, user.password)
           .then(valid => {
-            console.log(req.body.password)
-
             if (!valid) {
               return res.status(401).json({ error: 'Mot de passe incorrect !' });
             }
-            
             res.status(200).json({
-              userId: user._id,
+              userId: user.id,
               token: jwt.sign(
-                { userId: user._id },
+                { userId: user.id },
                 'RANDOM_TOKEN_SECRET',
                 { expiresIn: '24h' }
               )
