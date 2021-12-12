@@ -46,15 +46,21 @@
     },
     methods: {
       switchToLogin : function () {
-        this.node = 'login';
+        
       },
       createAccount: function () {
         this.$store.dispatch('createAccount', {
+          prenom: this.prenom,
+          nom: this.nom,
           pseudo: this.pseudo,
           email: this.email,
           password: this.password,
+        }).then(function (response) {
+          console.log(response);
+        }).error(function (error) {
+          console.log(error)
         })
-      }
+      },
     }
   }
 

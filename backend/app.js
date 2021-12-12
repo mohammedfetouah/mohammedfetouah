@@ -5,6 +5,10 @@ const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
 const commentaireRoutes = require('./routes/commentaire');
 const path = require('path'); // Permet de récupérer les images 
+const cors = require('cors');
+
+
+app.use(cors());
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -13,7 +17,12 @@ app.use((req, res, next) => {
     next();
 });
 
+
+
 app.use(bodyParser.json()); // Permet de parser le body (ne fonctionne pas quand il y a un fichier)
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.use('/api/commentaire', commentaireRoutes);
 app.use('/api/post', postRoutes);

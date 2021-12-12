@@ -4,7 +4,7 @@
     <p class="card_subtitle">Tu n'as pas encore de compte ?
       <span class="card_action" @click="switchToCreateAccount()" >Créer un compte</span>
     </p>
-    <form id="login" @submit="login">
+    <form id="login">
       <div class="form-row">
         <input v-model="email" class="form-input" type="text" placeholder="Adresse email">
       </div>
@@ -31,24 +31,20 @@
       }
     },
     methods: {
-      login: function (event) {
-        event.preventDefault();
-        // Fonction appel à l'api pour se connecter
-        console.log('connexion');
-      },
       switchToCreateAccount : function () {
         this.node = 'create';
       },
-      switchToLogin : function () {
-        this.node = 'login';
-      },
-      createAccount: function () {
-        this.$store.dispatch('createAccount', {
-          pseudo: this.pseudo,
+
+      login: function () {
+        this.$store.dispatch('login', {
           email: this.email,
-          password: this.password,
+          password: this.password
+        }).then(function (response) {
+          console.log(response);
+        }).error(function (error) {
+          console.log(error)
         })
-      }
+      },
     }
   }
 
