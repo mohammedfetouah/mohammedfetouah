@@ -6,7 +6,7 @@
     <h1 class="card_title">Bienvenue sur votre réseau social d'entreprise</h1>
     <h2 class="card_title_secondary">Inscription</h2>
     <p class="card_subtitle">Tu as deja un compte ?
-      <span class="card_action" @click="switchToLogin()" >Se connecter</span>
+      <span class="card_action" >Se connecter</span>
     </p>
     <div class="form-row">
       <input v-model="prenom" class="form-row_input" type="text" placeholder="Entrée votre prénom">
@@ -23,15 +23,22 @@
     <div class="form-row">
       <input v-model="password" class="form-row_input" type="password" placeholder="Mot de passe">
     </div>
+      <div class="form-row" v-if="status == 'error_create'">
+        Adresse mail déja utilisée
+      </div>
     <div class="form-row"> 
-      <button @click="createAccount()" class="button button--disabled">
-        Créer un compte 
+      <button @click="createAccount()">
+          <span v-if="status == 'loading'">Créaation en cours...</span>
+          <span v-else>Créer un compte </span>
+        
       </button> 
     </div>
   </div>
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+
   export default {
     name : 'Signup',
     data : function () {
@@ -46,9 +53,12 @@
     },
     methods: {
       switchToLogin : function () {
-        
+      },
+      computed: {
+      ...mapState(['status'])
       },
       createAccount: function () {
+        const self = this;
         this.$store.dispatch('createAccount', {
           prenom: this.prenom,
           nom: this.nom,
@@ -56,7 +66,8 @@
           email: this.email,
           password: this.password,
         }).then(function (response) {
-          console.log(response);
+          self.$router.push('/mon-compte')
+          console.log(response)
         }).error(function (error) {
           console.log(error)
         })

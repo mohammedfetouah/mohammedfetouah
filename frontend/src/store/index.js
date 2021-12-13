@@ -11,21 +11,39 @@ const instance = axios.create({
 
 export default createStore({
   state: {
+    status: '',
+    user: {
+      userId: -1,
+      token: '',
+    },
+    userInfos: {
+      nom: '',
+      prenom: '',
+      pseudo: '',
+      email: '',
+    }
   },
   getters: {
   },
   mutations: {
+    setStatus: function (state, status) {
+      state.status = status;
+    },
+
   },
   actions: {
     createAccount: ({commit}, userInfos) => {
+      commit('setStatus', 'loading');
       return new Promise ((resolve, reject) => {
         commit;
         instance.post('/signup', userInfos)
         .then(function (response) {
+          commit('setStatus', 'created');
           console.log(response);
           resolve(response);
         })
         .catch(function (error) {
+          commit('setStatus', 'error_create');
           console.log(error);
           reject(error);
         });
@@ -33,21 +51,23 @@ export default createStore({
     },
     
     login: ({commit}, userInfos) => {
+      commit('setStatus', 'loading');
       return new Promise ((resolve, reject) => {
-        commit;
         instance.post('/login', userInfos)
         .then(function (response) {
+          console.log('ok1')
+          commit('setStatus', '');
+          commit('logUser', response.data);
           console.log(response);
           resolve(response);
         })
         .catch(function (error) {
+          commit('setStatus', 'error_login');
           console.log(error);
           reject(error);
         });
       });
-    }
-
-    
+    },
   },
   modules: {
   }
