@@ -1,43 +1,45 @@
 <template>
-  <div class="card">
-    <div class="card_logo">
-      <img alt="Vue logo" src="../assets/icon-above-font.png">
-    </div>
-    <h1 class="card_title">Bienvenue sur votre réseau social d'entreprise</h1>
+  <div class="ontainer-fluid">
     <h2 class="card_title_secondary">Inscription</h2>
     <p class="card_subtitle">Tu as deja un compte ?
-      <span class="card_action" >Se connecter</span>
+      <router-link class="card_action" to="/connexion">Se connecte</router-link>
     </p>
-    <div class="form-row">
-      <input v-model="prenom" class="form-row_input" type="text" placeholder="Entrée votre prénom">
-    </div>
-    <div class="form-row">
-      <input v-model="nom" class="form-row_input" type="text" placeholder="Entrée votre nom">
-    </div>
-    <div class="form-row">
-      <input v-model="pseudo" class="form-row_input" type="text" placeholder="Entrée votre pseudo">
-    </div>
-    <div class="form-row">
-      <input v-model="email" class="form-row_input" type="text" placeholder="Adresse email">
-    </div>
-    <div class="form-row">
-      <input v-model="password" class="form-row_input" type="password" placeholder="Mot de passe">
-    </div>
-      <div class="form-row" v-if="status == 'error_create'">
-        Adresse mail déja utilisée
+    <form class="align-self-center">
+      <div class="row">
+        <div class="col">
+          <input v-model="prenom" class="form-control" type="text" placeholder="Entrée votre prénom">
+        </div>
+        <div class="col ">
+          <input v-model="nom" class="form-control" type="text" placeholder="Entrée votre nom">
+        </div>
       </div>
-    <div class="form-row"> 
-      <button @click="createAccount()">
+      <div class="row">
+        <div class="col">
+          <input v-model="email" class="form-control" type="text" placeholder="Adresse email">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col ">
+          <input v-model="pseudo" class="form-control" type="text" placeholder="Entrée votre pseudo">
+        </div>
+        <div class="col">
+          <input v-model="password" class="form-control" type="password" placeholder="Mot de passe">
+        </div>
+      </div>
+      <div class="col" v-if="status == 'error_create'">
+        Adresse mail déja utilisée
+      </div>    
+      <button @click="createAccount()" class="btn btn-secondary row" type="submit">
           <span v-if="status == 'loading'">Créaation en cours...</span>
           <span v-else>Créer un compte </span>
-        
       </button> 
-    </div>
+    </form>
   </div>
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+import { mapState } from 'vuex'
 
   export default {
     name : 'Signup',
@@ -78,7 +80,8 @@
 
 </script>
 <style scoped lang="scss">
-  img {
-    width: 30%;
-  }
+.row {
+  margin-top: 25px;
+}
+
 </style>

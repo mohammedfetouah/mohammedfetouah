@@ -2,7 +2,7 @@
   <div class="card">
     <h2 class="card_title_secondary">Connexion</h2>
     <p class="card_subtitle">Tu n'as pas encore de compte ?
-      <span class="card_action" @click="switchToCreateAccount()" >Créer un compte</span>
+      <router-link class="card_action" to="/inscription">Créer un compte</router-link>
     </p>
     <form id="login">
       <div class="form-row">
@@ -21,6 +21,7 @@
         </button>
       </div>
     </form>
+
   </div>
 </template>
 
@@ -40,10 +41,6 @@ import { mapState } from 'vuex'
       ...mapState(['status'])
     },
     methods: {
-      switchToCreateAccount : function () {
-        this.node = 'create';
-      },
-
       login: function () {
         const self = this;
         this.$store.dispatch('login', {
