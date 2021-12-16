@@ -18,7 +18,6 @@
           <input v-model="email" class="form-control" type="text" placeholder="Adresse email">
         </div>
       </div>
-
       <div class="row">
         <div class="col ">
           <input v-model="pseudo" class="form-control" type="text" placeholder="Entrée votre pseudo">
@@ -54,25 +53,25 @@ import { mapState } from 'vuex'
       }
     },
     methods: {
-      switchToLogin : function () {
-      },
       computed: {
       ...mapState(['status'])
       },
       createAccount: function () {
         const self = this;
-        this.$store.dispatch('createAccount', {
-          prenom: this.prenom,
-          nom: this.nom,
-          pseudo: this.pseudo,
-          email: this.email,
-          password: this.password,
-        }).then(function (response) {
-          self.$router.push('/mon-compte')
-          console.log(response)
-        }).error(function (error) {
-          console.log(error)
-        })
+        var instance = this.$store.state.axios;
+        instance.post('/signup',  {
+            prenom: this.prenom,
+            nom: this.nom,
+            pseudo: this.pseudo,
+            email: this.email,
+            password: this.password,
+          }).then(function () {
+            self.$router.push('/connexion');
+          })
+          .catch(function (error) {
+            // Gèrer l'erreur
+            console.log(error);
+          });
       },
     }
   }

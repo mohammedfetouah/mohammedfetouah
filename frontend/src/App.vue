@@ -5,7 +5,7 @@
       <router-link to="/">Forum</router-link> |
       <router-link to="/connexion">Connexion</router-link> |
       <router-link to="/inscription">Inscription</router-link> |
-      <router-link to="/mon-compte">Mon compte</router-link> 
+      <router-link to="/mon-compte">Profile</router-link> 
     </nav>
     <router-view />
     <Footer/>

@@ -8,7 +8,7 @@ exports.createPost = (req, res) => {
     const post = {
       message: req.body.message,
       img: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-      userId: req.body.userId
+      userId: req.query.userId
     };
     // Save Post in the database
     models.posts.create(post)

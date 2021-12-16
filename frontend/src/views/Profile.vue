@@ -11,15 +11,15 @@
 </template>
 
 <script>
+import {  } from "vuex"
 export default {
   name: 'Profile',
   mounted: function() {
     console.log(this.$store.state.user)
     if(this.$store.state.user.userId == -1) {
-      this.$router.push('/');
+      this.$router.push('/connexion');
       return;
     }
-    this.$store.dispatch('getUserInfos');
   },
 }
 </script>
