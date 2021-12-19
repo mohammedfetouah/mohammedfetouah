@@ -1,12 +1,28 @@
 <template>
-  <div class="card">
-    <h2 class="card_title_secondary">Dernière publication</h2>
-    <div id="posts">
-        <div v-for="post in posts" :key="post.id">
-          {{ post.message }}
+<div>
+    <div>
+        <div>
+            <div>
+                <div>
+                    <h3>Create a post</h3>
+                    <a href=""></a>
+                </div>
+                <div>
+                  <div>
+                    <div>
+                        <span class="logo">
+                        </span>
+                        <span>
+                            <span class="">Photo</span>
+                        </span>
+                    </div>
+                    <div></div>
+                  </div>
+                </div>
+            </div>
         </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -29,7 +45,9 @@ import { } from 'vuex'
                 Authorization: 'Bearer ' + this.$store.state.user.token,
             }
         }).then(function (response) {
+          console.log(response.data)
             self.posts = response.data;
+            
         })
         .catch(function (error) {
             // Gèrer l'erreur

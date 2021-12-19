@@ -1,12 +1,34 @@
 <template>
-    <header>
-        <div class="card">
-            <div class="card_logo">
-            <img alt="Vue logo" src="../assets/icon-above-font.png">
+    <div class="container">
+        <nav class="navbar navbar-expand-md navbar-light">
+            <a href="#" class="navbar-brand">Réseaux social</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#toggleMobileMenu"
+                aria-controls="toggleMobileMenu"
+                aria-expanded="false"
+                aria-lable="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon">
+                </span>
+            </button>
+            <div class="collapse navbar-collapse" id="toggleMobileMenu">
+                <ul class="navbar-nav ms-auto text-center">
+                    <li>
+                        <a class="nav-link" href="#"> Signup</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="#"> Login</a>
+                    </li>
+                </ul>
             </div>
-            <h1 class="card_title">Bienvenue sur votre réseau social d'entreprise</h1>
-        </div>
-    </header>
+
+        </nav>
+
+
+    </div>
 </template>
 
 <script>
@@ -17,7 +39,5 @@ export default {
 
 
 <style scoped lang="scss">
-    img {
-    width: 30%;
-  }
+
 </style>
