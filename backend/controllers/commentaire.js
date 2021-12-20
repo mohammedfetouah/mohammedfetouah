@@ -55,6 +55,8 @@ exports.modifyCommentaire = (req, res, next) => {
 };
 
 exports.deleteCommentaire = (req, res, next) => {
+  
+
   models.commentaires.findOne({ where : {id: req.params.id} })
     .then(commentaire => {
       models.commentaires.destroy({ where : {id: req.params.id} })

@@ -1,34 +1,35 @@
 <template>
-<div>
-    <div>
-        <div>
-            <div>
-                <div>
-                    <h3>Create a post</h3>
-                    <a href=""></a>
-                </div>
-                <div>
-                  <div>
-                    <div>
-                        <span class="logo">
-                        </span>
-                        <span>
-                            <span class="">Photo</span>
-                        </span>
-                    </div>
-                    <div></div>
-                  </div>
-                </div>
-            </div>
-        </div>
+  <div>
+    <h2>Création de Post</h2>
+    <hr>
+    <form @submit.prevent="onCreatePost">
+      <div class="form-group">
+        <label>Description</label>
+        <textarea
+          class="form-control"
+          v-model="message"
+        ></textarea>
+      </div>
+      <div class="mt-3">
+        <button type="submit" class="btn btn-secondary">Création d'un post</button>
+      </div>
+    </form>
+    <div class="posts">
+      <div class="post" v-for="post in posts" :key="post.id">
+        <img :src="post.img" :alt="post.message" v-if="post.img">
+        <p v-if="post.message">{{ post.message }}</p>
+        <Commentaires :postId="post.id" />
+      </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
 import { } from 'vuex'
+import Commentaires from '@/components/Commentaires.vue'
 
   export default {
+  components: { Commentaires },
     name : 'Forum',
     mounted: function() {
         if(this.$store.state.user.userId == -1) {
@@ -56,13 +57,33 @@ import { } from 'vuex'
     },
     data : function () {
       return {
+        message: '',
         posts: []
       };
     },
     computed: {
     },
     methods: {
-
+      onCreatePost() {
+        var instance = this.$store.state.axios;
+        instance.post(
+          '/post',
+          {
+            message: this.message
+          },
+          {
+            params: {
+                userId: this.$store.state.user.userId
+            },
+            headers: {
+                Authorization: 'Bearer ' + this.$store.state.user.token,
+            }
+          }
+        )
+        .then((response) => {
+          console.log(response)
+        })
+      }
     }
   }
 

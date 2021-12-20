@@ -7,9 +7,12 @@ const fs = require('fs');
 exports.createPost = (req, res) => {
     const post = {
       message: req.body.message,
-      img: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
       userId: req.query.userId
     };
+    if (req.file) {
+      post.img =  `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    }
+
     // Save Post in the database
     models.posts.create(post)
     .then(data => {
