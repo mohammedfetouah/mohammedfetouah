@@ -6,7 +6,8 @@ const fs = require('fs');
 
 exports.createCommentaire = (req, res) => {
   const commentaire = {
-    ...req.body
+    message: req.body.commentaire,
+    userId: req.query.userId
   };
   // Save Commentaire in the database
   models.commentaires.create(commentaire)
@@ -21,9 +22,7 @@ exports.createCommentaire = (req, res) => {
 };
 
 exports.getOneCommentaire = (req, res, next) => {
-  console.log(req
-    )
-  console.log(req.params)
+
   models.commentaires.findOne({ where: { id: req.params.id}
   
   }).then ( 

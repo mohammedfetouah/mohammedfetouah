@@ -1,6 +1,23 @@
 <template>
-  <div class="commentaires">
-    <h1>{{ postId }}</h1>
+  <div>
+    <form @submit.prevent="onCreateCommentaire">
+    <div class="form-group"  >
+      <label>Commenter</label>
+      <textarea
+        class="form-control"
+        v-model="commentaire"
+      ></textarea>
+    </div>
+    <div class="commentaires">
+      <div class="commentaire" v-for="commentaire in commentaires" :key="commentaire.id">
+        <p v-if="commentaire.message">{{ commentaire.message }}</p>
+      </div>
+    </div>
+    <div class="mt-3">
+      <button type="submit" class="btn btn-secondary">Envoyer</button>
+    </div>
+  </form>
+
   </div>
 </template>
 
@@ -44,6 +61,39 @@ export default {
     };
   },
   components: {
+  },
+  methods: {
+      onCreateCommentaire() {
+         var self = this;
+        var instance = this.$store.state.axios;
+        instance.post(
+          '/commentaire',
+          {
+           commentaire: this.commentaire,
+           userId: this.$store.state.user.userId,
+           postId: this.postId,
+
+          },
+          {
+            
+            params: {
+                userId: this.$store.state.user.userId
+            },
+            headers: {
+                Authorization: 'Bearer ' + this.$store.state.user.token,
+            }
+          }
+        )
+        .then((response) => {
+           self.commentaires.push(response.data);
+
+
+          console.log(response.data)
+        })
+        .catch ((erreur) => {
+          console.log(erreur)
+        })
+      },
   }
 }
 </script>

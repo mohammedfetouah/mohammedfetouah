@@ -65,11 +65,13 @@ import Commentaires from '@/components/Commentaires.vue'
     },
     methods: {
       onCreatePost() {
+        var self = this;
         var instance = this.$store.state.axios;
         instance.post(
           '/post',
           {
-            message: this.message
+            message: this.message,
+            userId: this.$store.state.user.userId
           },
           {
             params: {
@@ -81,9 +83,13 @@ import Commentaires from '@/components/Commentaires.vue'
           }
         )
         .then((response) => {
-          console.log(response)
+           self.posts.push(response.data);
         })
-      }
+        .catch ((erreur) => {
+          console.log(erreur)
+        })
+      },
+
     }
   }
 

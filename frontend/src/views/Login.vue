@@ -45,25 +45,19 @@ import { mapState } from 'vuex'
     },
     methods: {
       login: function () {
-        console.log('1')
-
-
         const self = this;
         var instance = this.$store.state.axios;
-                console.log('2')
         instance.post('/auth/login', {
-          
-            email: this.email,
-            password: this.password
-            
-          }).then(function (response) {
-            self.$store.commit('login',response.data);
-            self.$router.push('/mon-compte');
-          })
-          .catch(function (error) {
-            // Gèrer l'erreur
-            console.log(error);
-          });
+          email: this.email,
+          password: this.password
+        }).then(function (response) {
+          self.$store.commit('login',response.data);
+          self.$router.push('/mon-compte');
+        })
+        .catch(function (error) {
+          // Gèrer l'erreur
+          console.log(error);
+        });
       },
     }
   }

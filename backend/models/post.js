@@ -1,4 +1,4 @@
-module.exports = (sequelize, Sequelize, Commentaire) => {
+module.exports = (sequelize, Sequelize, User) => {
     const Post = sequelize.define('post', {
       message: {
         type: Sequelize.TEXT
@@ -7,6 +7,6 @@ module.exports = (sequelize, Sequelize, Commentaire) => {
         type: Sequelize.STRING
       }
     });
-    Post.hasMany(Commentaire);
+    Post.belongsTo(User);
     return Post;
 };

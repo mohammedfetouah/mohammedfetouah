@@ -56,9 +56,10 @@ import { mapState } from 'vuex'
       ...mapState(['status'])
       },
       createAccount: function () {
+        console.log("okookok");
         const self = this;
         var instance = this.$store.state.axios;
-        instance.post('/signup',  {
+        instance.post('/auth/signup',  {
             prenom: this.prenom,
             nom: this.nom,
             pseudo: this.pseudo,
