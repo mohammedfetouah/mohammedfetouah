@@ -78,7 +78,8 @@ exports.deletePost = (req, res, next) => {
 
 exports.getAllPost = (req, res, next) => {
 
-    models.posts.findAll().then(
+    models.posts.findAll({order: [['createdAt', 'DESC']]})
+    .then(
       (posts) => {
         res.status(200).json(posts);
       }
@@ -92,7 +93,9 @@ exports.getAllPost = (req, res, next) => {
   };
 
   exports.getPostCommentaires = (req, res, next) => {
-    models.commentaires.findAll({ where: {postId: req.params.id}
+    models.commentaires.findAll({ 
+      where: {postId: req.params.id},
+      order: [['createdAt', 'DESC']]
       }).then(
       (commentaires) => {
         res.status(200).json(commentaires);

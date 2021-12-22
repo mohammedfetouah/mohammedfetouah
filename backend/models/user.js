@@ -1,4 +1,4 @@
-module.exports = (sequelize, Sequelize) => {
+module.exports = (sequelize, Sequelize,Post, Commentaire) => {
     const User = sequelize.define('user', {
       prenom: {
         type: Sequelize.STRING
@@ -21,8 +21,8 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       }
     });
-    // User.hasMany(Post);
-    // User.hasMany(Commentaire);
+    User.hasMany(Post);
+    User.hasMany(Commentaire);
   
     return User;
   };

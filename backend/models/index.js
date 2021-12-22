@@ -1,6 +1,7 @@
 const dbConfig = require("../config/db.config.js");
 
 const Sequelize = require("sequelize");
+const user = require("./user.js");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -23,13 +24,11 @@ db.sequelize = sequelize;
 // sequelize.sync({ force: true }); 
 sequelize.sync();
 
-
-
-db.users = require("./user.js")(sequelize, Sequelize);
-db.posts = require("./post.js")(sequelize, Sequelize, db.users);
-db.commentaires = require("./commentaire.js")(sequelize, Sequelize, db.users, db.posts);
-// db.posts = require("./post.js")(sequelize, Sequelize,db.commentaires);
-// db.users = require("./user.js")(sequelize, Sequelize,db.posts,db.commentaires);
+// db.users = require("./user.js")(sequelize, Sequelize);
+// db.posts = require("./post.js")(sequelize, Sequelize, db.users);
+db.commentaires = require("./commentaire.js")(sequelize, Sequelize);
+db.posts = require("./post.js")(sequelize, Sequelize,db.commentaires);
+db.users = require("./user.js")(sequelize, Sequelize,db.posts,db.commentaires);
 
 
 

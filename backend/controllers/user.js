@@ -54,6 +54,7 @@ exports.login = (req, res, next) => {
             }
             res.status(200).json({
               userId: user.id,
+              role : user.id,
               token: jwt.sign(
 
                 { userId: user.id },
@@ -63,7 +64,8 @@ exports.login = (req, res, next) => {
               nom: user.nom,
               prenom: user.prenom,
               pseudo: user.pseudo,
-              email: user.email
+              email: user.email,
+              role: user.role,
             });
           })
           .catch(error => res.status(500).json({ error }));

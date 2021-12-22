@@ -16,7 +16,7 @@
     </form>
     <div class="posts">
       <div class="post" v-for="post in posts" :key="post.id"  >
-        <h1>{{post.createdAt}}</h1>
+        <h1>Publié le {{ formatDate(post.createdAt) }}</h1>
         <img :src="post.img" :alt="post.message" v-if="post.img">
         <p v-if="post.message">{{ post.message }}</p>
         <Commentaires :postId="post.id" />
@@ -27,12 +27,14 @@
 
 <script>
 import { } from 'vuex'
+import moment from 'moment'
 import Commentaires from '@/components/Commentaires.vue'
 
-  export default {
+export default {
   components: { Commentaires },
     name : 'Forum',
     mounted: function() {
+        console.log(this.$store.state.user);
         if(this.$store.state.user.userId == -1) {
             this.$router.push('/connexion');
             return;
@@ -86,13 +88,15 @@ import Commentaires from '@/components/Commentaires.vue'
           }
         )
         .then((response) => {
-           self.posts.push(response.data);
+           self.posts.unshift(response.data);
         })
         .catch ((erreur) => {
           console.log(erreur)
         })
       },
-
+      formatDate: function (value) {
+        return moment(String(value)).format('DD/MM/YYYY hh:mm')
+      }
     }
   }
 

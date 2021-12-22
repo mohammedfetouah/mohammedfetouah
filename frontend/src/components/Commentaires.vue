@@ -86,9 +86,7 @@ export default {
           }
         )
         .then((response) => {
-           self.commentaires.push(response.data);
-
-
+          self.commentaires.unshift(response.data);
           console.log(response.data)
         })
         .catch ((erreur) => {

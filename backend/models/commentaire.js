@@ -1,12 +1,12 @@
-module.exports = (sequelize, Sequelize, User, Post) => {
+module.exports = (sequelize, Sequelize) => {
     const Commentaire = sequelize.define('commentaire', {
       message: {
         type: Sequelize.TEXT
       },
     });
 
-    Commentaire.belongsTo(User);
-    Commentaire.belongsTo(Post);
+    // Commentaire.belongsTo(User);
+    // Commentaire.belongsTo(Post);
     // Commentaire.hasOne(User);
     // Commentaire.hasOne(Post);
 

@@ -7,7 +7,8 @@ const fs = require('fs');
 exports.createCommentaire = (req, res) => {
   const commentaire = {
     message: req.body.commentaire,
-    userId: req.query.userId
+    userId: req.query.userId,
+    postId: req.body.postId
   };
   // Save Commentaire in the database
   models.commentaires.create(commentaire)

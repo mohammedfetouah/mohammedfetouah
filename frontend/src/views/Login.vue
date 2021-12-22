@@ -36,8 +36,8 @@ import { mapState } from 'vuex'
     data : function () {
       return {
         node: 'login',
-        email: '',
-        password: '',
+        email: 'fetouah.m@gmail.com',
+        password: 'Algerie95880@',
       }
     },
     computed: {
@@ -51,7 +51,7 @@ import { mapState } from 'vuex'
           email: this.email,
           password: this.password
         }).then(function (response) {
-          self.$store.commit('login',response.data);
+          localStorage.setItem('userStore',JSON.stringify(response.data));
           self.$router.push('/mon-compte');
         })
         .catch(function (error) {
