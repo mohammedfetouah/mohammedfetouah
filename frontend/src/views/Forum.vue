@@ -15,7 +15,8 @@
       </div>
     </form>
     <div class="posts">
-      <div class="post" v-for="post in posts" :key="post.id">
+      <div class="post" v-for="post in posts" :key="post.id"  >
+        <h1>{{post.createdAt}}</h1>
         <img :src="post.img" :alt="post.message" v-if="post.img">
         <p v-if="post.message">{{ post.message }}</p>
         <Commentaires :postId="post.id" />
@@ -58,7 +59,9 @@ import Commentaires from '@/components/Commentaires.vue'
     data : function () {
       return {
         message: '',
-        posts: []
+        posts: [],
+        createdAt: '',
+        pseudo : ''
       };
     },
     computed: {
