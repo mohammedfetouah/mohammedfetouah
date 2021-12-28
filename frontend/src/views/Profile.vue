@@ -3,7 +3,7 @@
     <h1 class="card_tittle"> espace perso</h1>
     <p class="card_subtitle">je suis ...</p>
     <div class="form-row">
-      <button class="button">
+      <button class="button" v-on:click="greet">
         Déconnexion
       </button>
     </div>

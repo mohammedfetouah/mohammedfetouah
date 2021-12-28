@@ -52,4 +52,10 @@ export default {
       }
     }
   }
+  .btn{
+    margin-top: 25px;
+  }
+  textarea {
+    resize: none;
+  }
 </style>

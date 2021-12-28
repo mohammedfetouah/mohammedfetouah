@@ -8,20 +8,22 @@
         <textarea
           class="form-control"
           v-model="message"
+          placeholder="Commencer un post" 
+          
         ></textarea>
       </div>
-      <div class="mt-3">
-        <button type="submit" class="btn btn-secondary">Création d'un post</button>
-      </div>
+      <button type="submit" class="btn btn-secondary">Création d'un post</button>
     </form>
-    <div class="posts">
-      <div class="post" v-for="post in posts" :key="post.id"  >
-        <h1>Publié le {{ formatDate(post.createdAt) }}</h1>
-        <img :src="post.img" :alt="post.message" v-if="post.img">
-        <p v-if="post.message">{{ post.message }}</p>
-        <Commentaires :postId="post.id" />
+    <div class="card post" v-for="post in posts" :key="post.id">
+      <div class="card-body">
+        <h5 class="card-title">pseudo</h5>
+        <p class="card-text" v-if="post.message">{{ post.message }}</p>
+        <p class="card-text"><small class="text-muted">Publié le {{ formatDate(post.createdAt) }}</small></p>
       </div>
-    </div>
+      <img src="https://fr.wikipedia.org/wiki/Panda_g%C3%A9ant#/media/Fichier:Grosser_Panda.JPG" class="card-img-bottom" alt="">
+      <!-- <img :src="post.img" class="card-img-bottom" :alt="post.message" v-if="post.img"> -->
+      <Commentaires :postId="post.id" />
+    </div>  
   </div>
 </template>
 
@@ -63,7 +65,8 @@ export default {
         message: '',
         posts: [],
         createdAt: '',
-        pseudo : ''
+        pseudo : '',
+
       };
     },
     computed: {
@@ -104,5 +107,8 @@ export default {
 <style scoped lang="scss">
 .row {
   margin-top: 25px;
+}
+.card.post {
+    margin-top: 50px;
 }
 </style>
