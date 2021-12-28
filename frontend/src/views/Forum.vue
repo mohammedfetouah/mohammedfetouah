@@ -2,19 +2,18 @@
   <div>
     <h2>Création de Post</h2>
     <hr>
-    <form @submit.prevent="onCreatePost">
+    <form @submit.prevent="onCreatePost" class="align-self-center formul col-xs-12 col-sm-8 col-md-6 col-lg-4  " >
       <div class="form-group">
         <label>Description</label>
         <textarea
-          class="form-control"
+          class="form-control post"
           v-model="message"
           placeholder="Commencer un post" 
-          
         ></textarea>
       </div>
       <button type="submit" class="btn btn-secondary">Création d'un post</button>
     </form>
-    <div class="card post" v-for="post in posts" :key="post.id">
+    <div class="card post formul col-xs-12 col-sm-8 col-md-6 col-lg-4" v-for="post in posts" :key="post.id" >
       <div class="card-body">
         <h5 class="card-title">pseudo</h5>
         <p class="card-text" v-if="post.message">{{ post.message }}</p>
@@ -110,5 +109,10 @@ export default {
 }
 .card.post {
     margin-top: 50px;
+    padding-bottom: 25px;
+    border-radius: 15px;
 }
+  textarea.form-control {
+    width: 100%;
+  }
 </style>

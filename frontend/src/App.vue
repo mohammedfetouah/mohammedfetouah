@@ -28,13 +28,15 @@ export default {
 }
 </script>
 <style lang="scss">
+  body {
+    background: #ffd7d7;
+  }
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin: 20px;
   }
     a {
       font-weight: bold;
@@ -54,8 +56,17 @@ export default {
   }
   .btn{
     margin-top: 25px;
+    border-radius: 20px;
   }
   textarea {
     resize: none;
+  }
+  .formul {
+    margin: 0 auto;
+  }
+  textarea.form-control{
+    margin: 0 auto;
+    border-radius: 35px;
+    height: calc(1.5em + 0.75rem + 2px);
   }
 </style>

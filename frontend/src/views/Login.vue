@@ -5,11 +5,11 @@
       <router-link class="card_action" to="/inscription">Créer un compte</router-link>
     </p>
     <form id="login">
-      <div class="formul col-xs-12 col-sm-8 col-md-6  col-lg-3">
+      <div class="formul col-xs-12 col-sm-6 col-md-4 col-lg-2 ">
         <label for="exampleInputEmail1" class="form-label">Adresse email</label>
         <input v-model="email" class="form-control" type="text" placeholder="email@gmail.com">
       </div>
-      <div class="formul col-xs-12 col-sm-8 col-md-6  col-lg-3">
+      <div class="formul col-xs-12 col-sm-6 col-md-4 col-lg-2 ">
         <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
         <input v-model="password" class="form-control " type="password" placeholder="*********">
       </div>

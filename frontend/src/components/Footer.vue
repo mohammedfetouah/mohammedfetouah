@@ -19,7 +19,9 @@ export default {
 
 <style scoped lang="scss">
 .footer-section {
-    margin-top: 25px;
-    background: gray;
+    margin-top: 100px;
+    background: rgb(255, 255, 255);
+    
 }
+
 </style>

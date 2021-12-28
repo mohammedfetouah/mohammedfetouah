@@ -5,23 +5,23 @@
       <router-link class="card_action" to="/connexion">Se connecte</router-link>
     </p>
     <form class="align-self-center">
-      <div class="formul col-xs-12 col-sm-8 col-md-6  col-lg-3">
+      <div class="formul col-xs-12 col-sm-6 col-md-4 col-lg-2">
         <label for="prenom" class="form-label">Prénom</label>
         <input v-model="prenom" class="form-control" type="text">
       </div>
-      <div class="formul col-xs-12 col-sm-8 col-md-6  col-lg-3">
+      <div class="formul col-xs-12 col-sm-6 col-md-4 col-lg-2">
         <label for="nom" class="form-label">Nom</label>
         <input v-model="nom" class="form-control" type="text">
       </div>
-      <div class="formul col-xs-12 col-sm-8 col-md-6  col-lg-3">
+      <div class="formul col-xs-12 col-sm-6 col-md-4 col-lg-2">
         <label for="email" class="form-label">Adresse email</label>
         <input v-model="email" class="form-control input-xl" type="text" >
       </div>
-      <div class="formul col-xs-12 col-sm-8 col-md-6  col-lg-3">
+      <div class="formul col-xs-12 col-sm-6 col-md-4 col-lg-2">
         <label for="pseudo" class="form-label">Pseudo</label>
         <input v-model="pseudo" class="form-control" type="text">
       </div>
-      <div class="formul col-xs-12 col-sm-8 col-md-6  col-lg-3">
+      <div class="formul col-xs-12 col-sm-6 col-md-4 col-lg-2">
         <label for="Password" class="form-label">Mot de passe</label>
         <input v-model="password" class="form-control" type="password">
       </div>

@@ -121,4 +121,7 @@ export default {
 .toast-body {
     text-align: left;
 }
+  textarea.form-control {
+    width: 90%;
+  }
 </style>
