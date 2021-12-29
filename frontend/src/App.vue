@@ -7,7 +7,9 @@
       <router-link to="/inscription">Inscription</router-link> |
       <router-link to="/mon-compte">Profile</router-link> 
     </nav>
-    <router-view />
+    <div class="view-container">
+      <router-view />
+    </div>
     <Footer/>
   </div>
 </template>
@@ -30,6 +32,11 @@ export default {
 <style lang="scss">
   body {
     background: #ffd7d7;
+  }
+  .view-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 15px;
   }
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -67,6 +74,7 @@ export default {
   textarea.form-control{
     margin: 0 auto;
     border-radius: 35px;
-    height: calc(1.5em + 0.75rem + 2px);
+    height: 80px;
+    padding: 10px 20px;
   }
 </style>

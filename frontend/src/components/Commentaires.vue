@@ -118,10 +118,20 @@ export default {
 
 
 <style scoped lang="scss">
-.toast-body {
-    text-align: left;
-}
+  .toast-body {
+      text-align: left;
+  }
   textarea.form-control {
     width: 90%;
   }
+  .commentaire {
+    background: #ffd7d7;
+    width: 80%;
+    margin: 15px auto;
+    border-radius: 10px;
+    .toast-header{
+      background: none;
+    }
+    
+}
 </style>
