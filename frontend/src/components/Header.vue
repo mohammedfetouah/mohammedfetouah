@@ -1,34 +1,32 @@
 <template>
     <div class="container">
         <nav class="navbar navbar-expand-md navbar-light">
-            <a href="#" class="navbar-brand">Réseaux social</a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#toggleMobileMenu"
-                aria-controls="toggleMobileMenu"
-                aria-expanded="false"
-                aria-lable="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon">
-                </span>
-            </button>
-            <div class="collapse navbar-collapse" id="toggleMobileMenu">
-                <ul class="navbar-nav ms-auto text-center">
-                    <li>
-                        <a class="nav-link" href="#"> Signup</a>
+            <a href="#" class="navbar-brand">Groupomania</a>
+
+                <ul class="navbar-nav ms-auto text-center" id="nav">
+                    <li >
+                        <router-link to="/connexion" class="nav-link" v-if="!isLogged">Connexion</router-link>
+                        <router-link to="/" class="nav-link" v-else>Forum</router-link>
                     </li>
                     <li>
-                        <a class="nav-link" href="#"> Login</a>
+                        <router-link to="/inscription" class="nav-link" v-if="!isLogged">Inscription</router-link>
+                        <router-link to="/mon-compte" class="nav-link" v-else>Profile</router-link>
                     </li>
                 </ul>
-            </div>
         </nav>
     </div>
 </template>
 <script>
+import {  } from "vuex"
 export default {
+
+    data : function () {
+      return {  
+          isLogged: this.$store.state.user.userId != -1
+      };  
+    }
+
+
     
 }
 </script>

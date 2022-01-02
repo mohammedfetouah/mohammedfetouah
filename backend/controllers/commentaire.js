@@ -2,6 +2,7 @@ const models  = require("../models");
 const db = require("../models");
 const Commentaire = db.commentaires;
 const fs = require('fs');
+const User = models.users;
 
 
 exports.createCommentaire = (req, res) => {
@@ -55,16 +56,21 @@ exports.modifyCommentaire = (req, res, next) => {
 };
 
 exports.deleteCommentaire = (req, res, next) => {
-  
+  User.findOne({where: {id: req.query.userId}})
+  .then(user => {
+    if (user.role == 'admin') {
+      models.commentaires.findOne({ where : {id: req.params.id} })
+      .then(commentaire => {
+        models.commentaires.destroy({ where : {id: req.params.id} })
+          .then(() => res.status(200).json({ message: 'Message supprimé !'}))
+          .catch(error => res.status(400).json({ error }));
 
-  models.commentaires.findOne({ where : {id: req.params.id} })
-    .then(commentaire => {
-      models.commentaires.destroy({ where : {id: req.params.id} })
-        .then(() => res.status(200).json({ message: 'Message supprimé !'}))
-        .catch(error => res.status(400).json({ error }));
-
-    })
-    .catch(error => res.status(500).json({ error }));
+      })
+      .catch(error => res.status(500).json({ error }));
+    } else {
+      res.status(403).json("Vous n'êtes pas admin !")
+    }
+  }).catch(error => res.status(500).json({ error }));
 };
 
 

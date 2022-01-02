@@ -27,9 +27,14 @@ sequelize.sync();
 // db.users = require("./user.js")(sequelize, Sequelize);
 // db.posts = require("./post.js")(sequelize, Sequelize, db.users);
 db.commentaires = require("./commentaire.js")(sequelize, Sequelize);
-db.posts = require("./post.js")(sequelize, Sequelize,db.commentaires);
-db.users = require("./user.js")(sequelize, Sequelize,db.posts,db.commentaires);
+db.posts = require("./post.js")(sequelize, Sequelize);
+db.users = require("./user.js")(sequelize, Sequelize);
 
-
+db.users.hasMany(db.posts, {foreignKey: 'userId', onDelete: 'cascade' });
+db.posts.belongsTo(db.users, {foreignKey: 'userId'});
+db.users.hasMany(db.commentaires, {foreignKey: 'userId', onDelete: 'cascade'});
+db.commentaires.belongsTo(db.users, {foreignKey: 'userId'});
+db.posts.hasMany(db.commentaires, {foreignKey: 'postId'});
+db.commentaires.belongsTo(db.posts, {foreignKey: 'postId'});
 
 module.exports = db;

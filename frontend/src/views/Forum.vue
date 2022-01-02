@@ -29,9 +29,10 @@
         <button type="submit" class="btn btn-secondary">Création d'un post</button>
       </div>
     </form>
-    <div class="card post formul" v-for="post in posts" :key="post.id" >
+    <div class="card post formul" v-for="(post, index) in posts" :key="index" >
       <div class="card-body">
-        <h5 class="card-title">pseudo</h5>
+        <div class="delete-post" v-if="isAdmin" @click="deletePost(post.id,index)">X</div>
+        <h5 class="card-title">Pseudo : {{ post.user.pseudo }}</h5>
         <img :src="post.img" class="card-img-bottom" :alt="post.message" v-if="post.img">
         <p class="card-text" v-if="post.message">{{ post.message }}</p>
         <p class="card-text"><small class="text-muted">Publié le {{ formatDate(post.createdAt) }}</small></p>
@@ -83,6 +84,7 @@ export default {
         posts: [],
         createdAt: '',
         pseudo : '',
+        isAdmin : this.$store.state.user.role == 'admin'
       };
     },
     computed: {
@@ -109,7 +111,14 @@ export default {
           }
         )
         .then((response) => {
-           self.posts.unshift(response.data);
+          var post = response.data;
+          // Ici l'api retoune le post sans le user donc on l'ajoute manuellement pour afficher le pseudo
+          post.user = {
+            pseudo: self.$store.state.user.pseudo
+          };
+          self.posts.unshift(post);
+          self.image = '';
+          self.file = '';
         })
         .catch ((erreur) => {
           console.log(erreur)
@@ -135,7 +144,28 @@ export default {
         this.file = null;
       },
       formatDate: function (value) {
-        return moment(String(value)).format('DD/MM/YYYY hh:mm')
+        return moment(String(value)).format('DD/MM/YYYY H:mm')
+      },
+      deletePost: function (postId,index) {
+        var self = this;
+        var instance = this.$store.state.axios;
+        instance.delete(
+          '/post/' + postId,
+          {
+            params: {
+                userId: this.$store.state.user.userId
+            },
+            headers: {
+                Authorization: 'Bearer ' + this.$store.state.user.token,
+            }
+          }
+        )
+        .then(() => {
+          self.posts.splice(index, 1);
+        })
+        .catch ((erreur) => {
+          console.log(erreur)
+        });
       }
     }
   }

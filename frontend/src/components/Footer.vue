@@ -4,7 +4,7 @@
         <footer class="text-center">
             <div class="text-center p-3">
             © 2022 Copyright:
-            <a class="" href="http://localhost:8080/">Réseaux social</a>
+            <a class="" href="http://localhost:8080/">Groupomania</a>
             </div>
         </footer>
     </section>

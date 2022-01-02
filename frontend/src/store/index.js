@@ -25,6 +25,17 @@ export default createStore({
 			if(localStorage.getItem('userStore')) {
         state.user = JSON.parse(localStorage.getItem('userStore'));
 			}
+		},
+    logout(state) {
+      localStorage.clear();
+			state.user = {
+        userId: -1,
+        email: '',
+        nom: '',
+        prenom: '',
+        pseudo: '',
+        token: ''
+      };
 		}
   },
   actions: {

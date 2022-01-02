@@ -2,6 +2,7 @@ const  models  = require("../models");
 const db = require("../models");
 const Post = db.posts;
 const fs = require('fs');
+const User = models.users;
 
 
 exports.createPost = (req, res) => {
@@ -61,41 +62,72 @@ exports.modifyPost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-  models.posts.findOne({where: {id: req.params.id} })
-    .then(post => {
-      console.log(post)
-      const filename = post.img.split('/images/')[1];
-      fs.unlink(`images/${filename}`, () => {
-        models.posts.destroy({ where : {id: req.params.id} })
-          .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
-          .catch(error => res.status(400).json({ error }));
-      });
-    })
-    .catch(error => res.status(500).json({ error }));
+  User.findOne({where: {id: req.query.userId}})
+  .then(user => {
+    if (user.role == 'admin') {
+      models.posts.findOne({where: {id: req.params.id} })
+      .then(post => {
+        if (post.img) {
+          const filename = post.img.split('/images/')[1];
+          fs.unlink(`images/${filename}`, () => {
+            models.posts.destroy({ where : {id: req.params.id} })
+              .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
+              .catch(error => res.status(400).json({ error }));
+          });
+        } else {
+          models.posts.destroy({ where : {id: req.params.id} })
+              .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
+              .catch(error => res.status(400).json({ error }));
+        }
+      })
+      .catch(error => res.status(500).json({ error }));
+    } else {
+      res.status(403).json("Vous n'êtes pas admin !")
+    }
+  }).catch(error => res.status(500).json({ error }));
 };
 
 
 
 exports.getAllPost = (req, res, next) => {
-
-    models.posts.findAll({order: [['createdAt', 'DESC']]})
+    models.posts.findAll({
+      order: [['createdAt', 'DESC']],
+      include: [
+        {
+          model: User,
+          attributes: ['id', 'prenom', 'nom', 'pseudo']
+        }
+      ],
+    })
     .then(
       (posts) => {
         res.status(200).json(posts);
       }
     ).catch(
-      (error) => {
+      function (error) {
+        console.log('test lou');
+        console.log(error);
         res.status(400).json({
           error: error
         });
       }
+      // (error) => {
+      //   res.status(400).json({
+      //     error: error
+      //   });
+      // }
     );
   };
 
   exports.getPostCommentaires = (req, res, next) => {
     models.commentaires.findAll({ 
-      where: {postId: req.params.id},
-      order: [['createdAt', 'DESC']]
+        where: {postId: req.params.id},
+        include: [
+          {
+          model: User,
+          attributes: ['id', 'prenom', 'nom', 'pseudo']
+        }],
+        order: [['createdAt', 'DESC']]
       }).then(
       (commentaires) => {
         res.status(200).json(commentaires);

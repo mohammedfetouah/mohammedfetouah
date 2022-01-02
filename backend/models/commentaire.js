@@ -5,10 +5,5 @@ module.exports = (sequelize, Sequelize) => {
       },
     });
 
-    // Commentaire.belongsTo(User);
-    // Commentaire.belongsTo(Post);
-    // Commentaire.hasOne(User);
-    // Commentaire.hasOne(Post);
-
     return Commentaire;
 };

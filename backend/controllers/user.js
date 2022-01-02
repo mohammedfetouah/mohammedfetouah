@@ -31,7 +31,23 @@ exports.signup = (req, res, next) => {
             role: 'user'
           });
           user.save()
-            .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
+            .then(() => {
+              res.status(200).json({
+                userId: user.id,
+                role : user.id,
+                token: jwt.sign(
+  
+                  { userId: user.id },
+                  'RANDOM_TOKEN_SECRET',
+                  { expiresIn: '24h' }
+                ),
+                nom: user.nom,
+                prenom: user.prenom,
+                pseudo: user.pseudo,
+                email: user.email,
+                role: user.role,
+              });
+            })
             .catch(error => res.status(400).json({ message : "erreur lors de la creation de l'utilisateur"}));
       })
       .catch(error => res.status(500).json({ error }));
@@ -73,5 +89,13 @@ exports.login = (req, res, next) => {
       .catch(error => res.status(500).json({ error }));
   };
 
-
+  exports.deleteProfile = (req, res, next) => {
+    db.users.findOne({where: {id: req.params.id} })
+      .then(user => {
+        db.users.destroy({ where : {id: req.params.id} })
+          .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
+          .catch(error => res.status(400).json({ error }));
+      })
+      .catch(error => res.status(500).json({ error }));
+  };
 

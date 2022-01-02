@@ -1,12 +1,6 @@
 <template>
   <div>
     <Header/>
-    <nav id="nav">
-      <router-link to="/">Forum</router-link> |
-      <router-link to="/connexion">Connexion</router-link> |
-      <router-link to="/inscription">Inscription</router-link> |
-      <router-link to="/mon-compte">Profile</router-link> 
-    </nav>
     <div class="view-container">
       <router-view />
     </div>
@@ -57,7 +51,7 @@ export default {
       color: #000000;
 
       &.router-link-exact-active {
-        color: #00f386;
+        color: #6c757d;
       }
     }
   }

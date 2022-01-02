@@ -5,11 +5,11 @@
       <router-link class="card_action" to="/inscription">Créer un compte</router-link>
     </p>
     <form id="login">
-      <div class="formul col-xs-12 col-sm-6 col-md-4 col-lg-2 ">
+      <div class="formul col-xs-12 col-sm-6 col-md-4">
         <label for="exampleInputEmail1" class="form-label">Adresse email</label>
         <input v-model="email" class="form-control" type="text" placeholder="email@gmail.com">
       </div>
-      <div class="formul col-xs-12 col-sm-6 col-md-4 col-lg-2 ">
+      <div class="formul col-xs-12 col-sm-6 col-md-4">
         <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
         <input v-model="password" class="form-control " type="password" placeholder="*********">
       </div>
@@ -20,8 +20,7 @@
       </div> 
       <div class="form-row"> 
         <button type="submit" class="btn btn-secondary row" @click="login()">
-          <span v-if="status == 'loading'">Connexion en cours...</span>
-          <span v-else>Connexion</span>
+          <span>Connexion</span>
         </button>
       </div>
     </form>
@@ -29,19 +28,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { } from 'vuex'
 
   export default {
     name : 'Login',
     data : function () {
       return {
         node: 'login',
-        email: 'fetouah.m@gmail.com',
-        password: 'Algerie95880@',
+        email: '',
+        password: '',
       }
-    },
-    computed: {
-      ...mapState(['status'])
     },
     methods: {
       login: function () {
@@ -49,10 +45,11 @@ import { mapState } from 'vuex'
         var instance = this.$store.state.axios;
         instance.post('/auth/login', {
           email: this.email,
-          password: this.password
+          password: this.password,
         }).then(function (response) {
           localStorage.setItem('userStore',JSON.stringify(response.data));
-          self.$router.push('/mon-compte');
+          self.$store.commit('initialiseUserStore');
+          window.location.href = window.location.origin;
         })
         .catch(function (error) {
           // Gèrer l'erreur

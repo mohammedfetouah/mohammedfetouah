@@ -3,10 +3,11 @@
     <form @submit.prevent="onCreateCommentaire">
 
       <div class="commentaires">
-        <div class="commentaire" v-for="commentaire in commentaires" :key="commentaire.id">
+        <div class="commentaire" v-for="(commentaire, index) in commentaires" :key="index">
+          <div class="delete-commentaire" v-if="isAdmin" @click="deleteCommentaire(commentaire.id,index)">X</div>
           <div class="toast-header commentaire-header">
             <img src="" class="rounded me-2" alt="">
-            <strong class="me-auto">Pseudo</strong>
+            <strong class="me-auto">Pseudo : {{ commentaire.user.pseudo }}</strong>
             <small>Publié le {{ formatDate(commentaire.createdAt) }}</small>
           </div>
           <div class="toast-body commentaire-message"  v-if="commentaire.message">
@@ -42,7 +43,6 @@ import moment from 'moment'
 export default {
   name: 'Commentaires',
   mounted: function() {
-    console.log('okok');
     if(this.$store.state.user.userId == -1) {
         this.$router.push('/connexion');
         return;
@@ -57,7 +57,6 @@ export default {
             Authorization: 'Bearer ' + this.$store.state.user.token,
         }
     }).then(function (response) {
-      console.log(response.data)
         self.commentaires = response.data;
         
     })
@@ -75,13 +74,14 @@ export default {
       commentaires: [],
       createdAt: '',
       pseudo : '',
+      isAdmin : this.$store.state.user.role == 'admin'
     };
   },
   components: {
   },
   methods: {
       formatDate: function (value) {
-        return moment(String(value)).format('DD/MM/YYYY hh:mm')
+        return moment(String(value)).format('DD/MM/YYYY H:mm')
       },
       onCreateCommentaire() {
          var self = this;
@@ -105,13 +105,38 @@ export default {
           }
         )
         .then((response) => {
-          self.commentaires.unshift(response.data);
-          console.log(response.data)
+          var commentaire = response.data;
+          // Ici l'api retoune le commentaire sans le user donc on l'ajoute manuellement pour afficher le pseudo
+          commentaire.user = {
+            pseudo: self.$store.state.user.pseudo
+          };
+          self.commentaires.unshift(commentaire);
         })
         .catch ((erreur) => {
           console.log(erreur)
         })
       },
+      deleteCommentaire: function (commentaireId,index) {
+        var self = this;
+        var instance = this.$store.state.axios;
+        instance.delete(
+          '/commentaire/' + commentaireId,
+          {
+            params: {
+                userId: this.$store.state.user.userId
+            },
+            headers: {
+                Authorization: 'Bearer ' + this.$store.state.user.token,
+            }
+          }
+        )
+        .then(() => {
+          self.commentaires.splice(index, 1);
+        })
+        .catch ((erreur) => {
+          console.log(erreur)
+        });
+      }
   }
 }
 </script>
