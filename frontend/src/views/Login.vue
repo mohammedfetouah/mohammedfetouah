@@ -5,6 +5,7 @@
       <router-link class="card_action" to="/inscription">Créer un compte</router-link>
     </p>
     <form id="login">
+      <p class="error" v-if="alert">{{ alert }}</p>
       <div class="formul col-xs-12 col-sm-6 col-md-4">
         <label for="exampleInputEmail1" class="form-label">Adresse email</label>
         <input v-model="email" class="form-control" type="text" placeholder="email@gmail.com">
@@ -37,6 +38,7 @@ import { } from 'vuex'
         node: 'login',
         email: '',
         password: '',
+        alert: ''
       }
     },
     methods: {
@@ -47,13 +49,13 @@ import { } from 'vuex'
           email: this.email,
           password: this.password,
         }).then(function (response) {
+          console.log(response)
           localStorage.setItem('userStore',JSON.stringify(response.data));
           self.$store.commit('initialiseUserStore');
           window.location.href = window.location.origin;
         })
         .catch(function (error) {
-          // Gèrer l'erreur
-          console.log(error);
+          self.alert = error.response.data.error;
         });
       },
     }

@@ -24,9 +24,7 @@ export default {
 }
 </script>
 <style lang="scss">
-  body {
-    background: #ffd7d7;
-  }
+
   .view-container {
     max-width: 800px;
     margin: 0 auto;
@@ -38,6 +36,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    background: #ffd7d7;
   }
     a {
       font-weight: bold;
@@ -45,7 +44,6 @@ export default {
     }
   #nav {
     padding: 30px;
-
     a {
       font-weight: bold;
       color: #000000;
@@ -66,9 +64,26 @@ export default {
     margin: 0 auto;
   }
   textarea.form-control{
-    margin: 0 auto;
+    margin: 25px auto 0;
     border-radius: 35px;
     height: 80px;
     padding: 10px 20px;
+  }
+  label {
+    font-weight: bold;
+    margin-top: 25px;
+  }
+    h2 {
+    font-size: 23px;
+    margin: 25px 0 0 0 ;
+  }
+  p.card_subtitle {
+    margin: 25px 0 0 0;
+  }
+  .form-control {
+    border-radius: 17px;
+  }
+  a {
+    text-decoration: none;
   }
 </style>

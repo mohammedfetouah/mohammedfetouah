@@ -5,9 +5,6 @@ const bcrypt = require('bcrypt');
 var passwordValidator = require('password-validator');
 const jwt = require('jsonwebtoken');
 
-
-
-
 exports.signup = (req, res, next) => {
     var schema = new passwordValidator();
     schema
@@ -48,12 +45,12 @@ exports.signup = (req, res, next) => {
                 role: user.role,
               });
             })
-            .catch(error => res.status(400).json({ message : "erreur lors de la creation de l'utilisateur"}));
+            .catch(error => res.status(400).json({ error : "Vous avez déjà un compte !"}));
       })
-      .catch(error => res.status(500).json({ error }));
+      .catch(error => res.status(500).json({ error : error }));
   
     } else {
-      res.status(400).json({message : 'mauvais format du mot de passe'});
+      res.status(400).json({error : 'Mauvais format du mot de passe'});
     }
 };
 

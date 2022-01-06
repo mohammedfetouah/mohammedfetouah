@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h2>Création de Post</h2>
-    <hr>
+    <h1>Partager votre publication</h1>
     <form @submit.prevent="onCreatePost" class="align-self-center formul" enctype="multipart/form-data">
       <div class="form-group">
         <div>
@@ -12,30 +11,42 @@
             id="message"
             v-model="message"
             placeholder="Commencer un post" 
+
           ></textarea>
         </div>
         <div class="form-image">
-          <div v-if="!image">
-            <label for="file">Choisir une image</label>
-            <input type="file" @change="onFileChange" name="file" id="file" accept="image/*" />
-          </div>
-          <div v-else>
+          <div v-if="image">
             <img :src="image" />
           </div>
         </div>
       </div>
       <div class="row-submit">
-        <button v-if="image" @click="removeImage">Supprimer l'image</button>
-        <button type="submit" class="btn btn-secondary">Création d'un post</button>
+          <div v-if="!image">
+            <label for="file" title="Choisir un image">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
+              </svg>
+            </label>
+            <input type="file" @change="onFileChange" name="file" id="file" accept="image/*" />
+          </div>
+          <div v-if="image">
+            <button @click="removeImage" class="btn btn-danger">Supprimer l'image</button>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-secondary">Créer un post</button>
+          </div>
       </div>
     </form>
-    <div class="card post formul" v-for="(post, index) in posts" :key="index" >
+    <div class="card post formul" v-for="(post, index) in posts" :key="post.id" >
       <div class="card-body">
-        <div class="delete-post" v-if="isAdmin" @click="deletePost(post.id,index)">X</div>
-        <h5 class="card-title">Pseudo : {{ post.user.pseudo }}</h5>
+        <div class="delete-post" v-if="isAdmin" @click="deletePost(post.id,index)">
+          <button type="button" class="btn-close" aria-label="delete"></button>
+        </div>
+        <h5 class="card-title">{{ post.user.pseudo }}</h5>
         <img :src="post.img" class="card-img-bottom" :alt="post.message" v-if="post.img">
-        <p class="card-text" v-if="post.message">{{ post.message }}</p>
-        <p class="card-text"><small class="text-muted">Publié le {{ formatDate(post.createdAt) }}</small></p>
+        <p class="card-text text-post" v-if="post.message">{{ post.message }}</p>
+        <p class="card-text"><small class="text-muted">{{ formatDate(post.createdAt) }}</small></p>
       </div>
       <Commentaires :postId="post.id" />
     </div>  
@@ -107,12 +118,13 @@ export default {
             headers: {
                 Authorization: 'Bearer ' + this.$store.state.user.token,
             }
-            
           }
         )
         .then((response) => {
           var post = response.data;
+
           // Ici l'api retoune le post sans le user donc on l'ajoute manuellement pour afficher le pseudo
+
           post.user = {
             pseudo: self.$store.state.user.pseudo
           };
@@ -184,7 +196,50 @@ export default {
     width: 100%;
   }
   .form-image img {
-    max-width: 300px;
-    margin: 0 auto;
+    max-width: 400px;
+    margin: 15px auto 0 auto;
   }
+  .row-submit {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+  }
+  .row-submit > div {
+    margin: 0 10px;
+  }
+  .row-submit button.btn {
+    margin-top: 0;
+  }
+  input[type="file"] {
+    display: none;
+  }
+  label[for="file"] {
+      margin: 15px auto;
+      border-radius: 50%;
+      background: red;
+      color: #fff;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+  }
+  label[for="file"] svg {
+      height: 25px;
+      width: 25px;
+  }
+  .delete-post {
+    text-align: right;
+  }
+  p.card-text.text-post {
+    background: #ffd7d7;
+    border-radius: 15px;
+    padding: 10px;
+}
+label {
+    font-weight: bold;
+    margin-top: 50px;
+}
 </style>

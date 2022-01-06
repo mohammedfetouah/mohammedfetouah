@@ -5,6 +5,7 @@
       <router-link class="card_action" to="/connexion">Se connecter</router-link>
     </p>
     <form class="align-self-center">
+      <p class="error" v-if="alert">{{alert}}</p>
       <div class="formul col-xs-12 col-sm-6 col-md-4">
         <label for="prenom" class="form-label">Prénom</label>
         <input v-model="prenom" class="form-control" type="text">
@@ -49,6 +50,7 @@ import { } from 'vuex'
         pseudo: '',
         email: '',
         password: '',
+        alert: ''
       }
     },
     methods: {
@@ -67,8 +69,7 @@ import { } from 'vuex'
             window.location.href = window.location.origin;
           })
           .catch(function (error) {
-            // Gèrer l'erreur
-            console.log(error);
+            self.alert = error.response.data.error;
           });
       },
     }
