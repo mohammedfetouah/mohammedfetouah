@@ -217,10 +217,10 @@ export default {
   label[for="file"] {
       margin: 15px auto;
       border-radius: 50%;
-      background: red;
+      background: rgb(0, 0, 0);
       color: #fff;
-      width: 45px;
-      height: 45px;
+      width: 35px;
+      height: 35px;
       display: flex;
       justify-content: center;
       align-items: center;
