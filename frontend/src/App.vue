@@ -86,4 +86,7 @@ export default {
   a {
     text-decoration: none;
   }
+  .hidden {
+    display: none;
+  }
 </style>

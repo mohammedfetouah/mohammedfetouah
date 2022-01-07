@@ -1,6 +1,6 @@
 <template>
   <div class="ontainer-fluid">
-    <h2 class="card_title_secondary">Inscription</h2>
+    <h1 class="card_title_secondary">Inscription</h1>
     <p class="card_subtitle">Tu as deja un compte ?
       <router-link class="card_action" to="/connexion">Se connecter</router-link>
     </p>
@@ -8,23 +8,23 @@
       <p class="error" v-if="alert">{{alert}}</p>
       <div class="formul col-xs-12 col-sm-6 col-md-4">
         <label for="prenom" class="form-label">Prénom</label>
-        <input v-model="prenom" class="form-control" type="text">
+        <input v-model="prenom" class="form-control" type="text" id="prenom">
       </div>
       <div class="formul col-xs-12 col-sm-6 col-md-4">
         <label for="nom" class="form-label">Nom</label>
-        <input v-model="nom" class="form-control" type="text">
+        <input v-model="nom" class="form-control" type="text" id="nom">
       </div>
       <div class="formul col-xs-12 col-sm-6 col-md-4">
         <label for="email" class="form-label">Adresse email</label>
-        <input v-model="email" class="form-control input-xl" type="text" >
+        <input v-model="email" class="form-control input-xl" type="text" id="email">
       </div>
       <div class="formul col-xs-12 col-sm-6 col-md-4">
         <label for="pseudo" class="form-label">Pseudo</label>
-        <input v-model="pseudo" class="form-control" type="text">
+        <input v-model="pseudo" class="form-control" type="text" id="pseudo">
       </div>
       <div class="formul col-xs-12 col-sm-6 col-md-4">
-        <label for="Password" class="form-label">Mot de passe</label>
-        <input v-model="password" class="form-control" type="password">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input v-model="password" class="form-control" type="password" id="password">
       </div>
       <div class="mb-3" v-if="status == 'error_create'">
         Adresse mail déja utilisée

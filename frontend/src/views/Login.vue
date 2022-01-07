@@ -1,18 +1,18 @@
 <template>
   <div>
-    <h2 class="card_title_secondary">Connexion</h2>
+    <h1 class="card_title_secondary">Connexion</h1>
     <p class="card_subtitle">Tu n'as pas encore de compte ?
       <router-link class="card_action" to="/inscription">Créer un compte</router-link>
     </p>
     <form id="login">
       <p class="error" v-if="alert">{{ alert }}</p>
       <div class="formul col-xs-12 col-sm-6 col-md-4">
-        <label for="exampleInputEmail1" class="form-label">Adresse email</label>
-        <input v-model="email" class="form-control" type="text" placeholder="email@gmail.com">
+        <label for="email" class="form-label">Adresse email</label>
+        <input v-model="email" class="form-control" type="text" placeholder="email@gmail.com" id="email">
       </div>
       <div class="formul col-xs-12 col-sm-6 col-md-4">
-        <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
-        <input v-model="password" class="form-control " type="password" placeholder="*********">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input v-model="password" class="form-control " type="password" placeholder="*********" id="password">
       </div>
       <div  class="row">
         <div class="col" v-if="status == 'error_login'">

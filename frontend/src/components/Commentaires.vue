@@ -18,14 +18,13 @@
         </div>
       </div>
         <div class="form-group"  >
-        <label>Commenter</label>
+        <label :for="'commentaire'+postId">Commenter</label>
         <textarea
           class="form-control"
           v-model="commentaire"
           placeholder="Ajouter un commentaire..."
-          id="textarea-commentaire"
+          :id="'commentaire'+postId"
           onclick="this.value ='';"
-           name="textarea-commentaire"
         >La signature est limitée à 200 caractères</textarea>
       </div>
 
