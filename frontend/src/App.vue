@@ -89,4 +89,9 @@ export default {
   .hidden {
     display: none;
   }
+  p.error {
+    margin-top: 25px;
+    color: red;
+    font-weight: bold;
+  }
 </style>

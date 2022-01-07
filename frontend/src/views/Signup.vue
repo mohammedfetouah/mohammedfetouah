@@ -25,9 +25,6 @@
       <div class="formul col-xs-12 col-sm-6 col-md-4">
         <label for="password" class="form-label">Mot de passe</label>
         <input v-model="password" class="form-control" type="password" id="password">
-      </div>
-      <div class="mb-3" v-if="status == 'error_create'">
-        Adresse mail déja utilisée
       </div>    
       <button @click="createAccount()" class="btn btn-secondary row" type="submit">
           <span>Créer un compte </span>
